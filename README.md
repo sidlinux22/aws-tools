@@ -71,12 +71,56 @@ bin/e2-unused-vmcleanup-darwin-amd64 "DEV"
 
 
 ### Description
+ 
+*  This tools will list all in AWS region fliter by tags
+As currently we are flitering all the instance with ENV key value set to DEV
+*  Get the branch and github repo details provided as instance tags
+*  Fetching all the objects of each repository one by one (everything in memory) and retrieves the commit history
+*  Validate the last commit timestamp and marked all instance with 3 days old commit as "Unused"
+*  List all the aws instance with fliter tag (both Unused and Inused)
+*  List all the aws instance marked as Unused
+* Promote user confirmation before terminating unused instance
+* If  input "YES/y" terminate all the ununsed instance and response back result.
 
 
 ### Tested
 
-
+This tool is been tested with follow conf:
+```
+go version go1.8 darwin/amd64
+Darwin Kernel Version 16.7.0
+AWS EC2 resource 
+```
 ### Troubleshooting
+
+* Error messsage 
+
+1)  AWS_ACCESS_KEY/AWS_SECRET_KEY are exported as env variable
+
+2) Make sure you have passed tag filter as command ARG
+Example: 
+
+bin/e2-unused-vmcleanup-darwin-amd64 "DEV
+
+"
+panic: runtime error: index out of range
+
+goroutine 1 [running]:
+main.ProviderAWS(0x143bd80, 0x0, 0x0)
+	/Users/siddharthsharma/aws-tools/cmd/tools/providerAWS.go:29 +0x13be
+main.main()
+	/Users/siddharthsharma/aws-tools/cmd/tools/main.go:17 +0x26
+	panic: runtime error: index out of range
+	"
+
+3) Error "error: reference not found"
+
+Branch tags value of instance is incorrect or branch is delete
+
+4) GIT 
+dont have access to repo or validate the GIT tags key value 
+"error: authentication required "
+
 
 
 
