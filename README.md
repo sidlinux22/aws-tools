@@ -36,8 +36,8 @@ bash-3.2$ make clean
 rm -f bin/e2-unused-vmcleanup-*
 
 bash-3.2$ make darwin
-cd /Users/siddharthsharma/omsairam/aws-tools/cmd/tools/; \
-	GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.VERSION=? -X main.COMMIT=d061b30fd7f1c15873c186ef7857ff485f5042e0 -X main.BRANCH=master" -o /Users/siddharthsharma/omsairam/aws-tools/bin/e2-unused-vmcleanup-darwin-amd64 . ; \
+cd /Users/siddharthsharma/aws-tools/cmd/tools/; \
+	GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.VERSION=? -X main.COMMIT=671e837a1ecd7fc8a56c5b9279d1e62f88ea66a9 -X main.BRANCH=master" -o /Users/siddharthsharma/aws-tools/bin/e2-unused-vmcleanup-darwin-amd64 . ; \
 	cd - >/dev/null
 
 bash-3.2$ ls -ld bin/e2-unused-vmcleanup-darwin-amd64
