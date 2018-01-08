@@ -36,8 +36,8 @@ bash-3.2$ make clean
 rm -f bin/e2-unused-vmcleanup-*
 
 bash-3.2$ make darwin
-cd /Users/siddharthsharma/omsairam/aws-tools/cmd/tools/; \
-	GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.VERSION=? -X main.COMMIT=d061b30fd7f1c15873c186ef7857ff485f5042e0 -X main.BRANCH=master" -o /Users/siddharthsharma/omsairam/aws-tools/bin/e2-unused-vmcleanup-darwin-amd64 . ; \
+cd /Users/siddharthsharma/aws-tools/cmd/tools/; \
+	GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.VERSION=? -X main.COMMIT=671e837a1ecd7fc8a56c5b9279d1e62f88ea66a9 -X main.BRANCH=master" -o /Users/siddharthsharma/aws-tools/bin/e2-unused-vmcleanup-darwin-amd64 . ; \
 	cd - >/dev/null
 
 bash-3.2$ ls -ld bin/e2-unused-vmcleanup-darwin-amd64
@@ -71,14 +71,71 @@ bin/e2-unused-vmcleanup-darwin-amd64 "DEV"
 
 
 ### Description
+ 
+*  This tools will list all in AWS region fliter by tags
+As currently we are flitering all the instance with ENV key value set to DEV
+*  Get the branch and github repo details provided as instance tags
+*  Fetching all the objects of each repository one by one (everything in memory) and retrieves the commit history
+*  Validate the last commit timestamp and marked all instance with 3 days old commit as "Unused"
+*  List all the aws instance with filter tag (both Unused and Inused)
+*  List all the aws instance marked as "Unused"
+* Prompt user for confirmation before terminating "Unused" instance
+* If  input "YES/y" terminate all the "Unused" instance and response back result.
 
 
 ### Tested
 
-
+This tool is been tested with follow:
+```
+go version go1.8 darwin/amd64
+Darwin Kernel Version 16.7.0
+AWS EC2 resource 
+```
 ### Troubleshooting
 
 
+*  AWS_ACCESS_KEY/AWS_SECRET_KEY are exported as env variable
+
+
+* Make sure you have passed tag filter as command ARG
+
+Example: 
+```
+bin/e2-unused-vmcleanup-darwin-amd64 "DEV
+```
+
+<Error messsage>
+"
+panic: runtime error: index out of range
+
+goroutine 1 [running]:
+main.ProviderAWS(0x143bd80, 0x0, 0x0)
+	/Users/siddharthsharma/aws-tools/cmd/tools/providerAWS.go:29 +0x13be
+main.main()
+	/Users/siddharthsharma/aws-tools/cmd/tools/main.go:17 +0x26
+	panic: runtime error: index out of range
+	"
+
+
+* Error "error: reference not found"
+
+> Instance branch tags value is incorrect or branch is delete.
+
+
+
+* GIT  related Error
+<Error messsage>
+"error: authentication required "
+> Make sure you have access to repo and valid repo - Validate the GIT tags key value for more details. 
+
+
+
+### Reference
+
+
+https://github.com/aws/aws-sdk-go <br />
+https://github.com/src-d/go-git  <br />
+https://github.com/olekukonko/tablewriter <br />
 
 
 
