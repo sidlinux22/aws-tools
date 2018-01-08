@@ -77,15 +77,15 @@ As currently we are flitering all the instance with ENV key value set to DEV
 *  Get the branch and github repo details provided as instance tags
 *  Fetching all the objects of each repository one by one (everything in memory) and retrieves the commit history
 *  Validate the last commit timestamp and marked all instance with 3 days old commit as "Unused"
-*  List all the aws instance with fliter tag (both Unused and Inused)
-*  List all the aws instance marked as Unused
-* Promote user confirmation before terminating unused instance
-* If  input "YES/y" terminate all the ununsed instance and response back result.
+*  List all the aws instance with filter tag (both Unused and Inused)
+*  List all the aws instance marked as "Unused"
+* Prompt user for confirmation before terminating "Unused" instance
+* If  input "YES/y" terminate all the "Unused" instance and response back result.
 
 
 ### Tested
 
-This tool is been tested with follow conf:
+This tool is been tested with follow:
 ```
 go version go1.8 darwin/amd64
 Darwin Kernel Version 16.7.0
@@ -93,15 +93,18 @@ AWS EC2 resource
 ```
 ### Troubleshooting
 
-* Error messsage 
 
-1)  AWS_ACCESS_KEY/AWS_SECRET_KEY are exported as env variable
+*  AWS_ACCESS_KEY/AWS_SECRET_KEY are exported as env variable
 
-2) Make sure you have passed tag filter as command ARG
+
+* Make sure you have passed tag filter as command ARG
+
 Example: 
-
+```
 bin/e2-unused-vmcleanup-darwin-amd64 "DEV
+```
 
+<Error messsage>
 "
 panic: runtime error: index out of range
 
@@ -113,16 +116,26 @@ main.main()
 	panic: runtime error: index out of range
 	"
 
-3) Error "error: reference not found"
 
-Branch tags value of instance is incorrect or branch is delete
+* Error "error: reference not found"
 
-4) GIT 
-dont have access to repo or validate the GIT tags key value 
+> Instance branch tags value is incorrect or branch is delete.
+
+
+
+* GIT  related Error
+<Error messsage>
 "error: authentication required "
+> Make sure you have access to repo and valid repo - Validate the GIT tags key value for more details. 
 
 
 
+### Reference
+
+
+https://github.com/aws/aws-sdk-go
+https://github.com/src-d/go-git 
+https://github.com/olekukonko/tablewriter
 
 
 
