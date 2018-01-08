@@ -66,6 +66,8 @@ bin/e2-unused-vmcleanup-darwin-amd64 "DEV"
 
 ## Demo
 
+![gif](https://github.com/sidlinux22/aws-tools/blob/master/tmp/tty.gif)
+
 
 
 ### Description
