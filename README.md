@@ -21,11 +21,11 @@ Basic required Tags ENV,GIT,BRANCH:
 
 Example:
 
-Key    Value
-ENV    DEV
-GIT    https://github.com/sidlinux22/ci_environment.git
-BRANCH  feature/add-test
-
+| Key   |      Value      |  
+|----------|:-------------:|
+| ENV |  DEV| 
+| GIT |    https://github.com/sidlinux22/ci_environment.git  |
+| BRANCH| feature/add-test | 
 
 ### Installing
 
